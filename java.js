@@ -33,20 +33,38 @@ const jobsSlider = () => {
   // elements
   const sliderBox = document.querySelector(".featured-jobs-slider-box");
   const slideChildLength = sliderBox.children.length;
-  nextBtn.addEventListener("click", (e) => {
-    slideNum++;
-    if (slideNum >= slideChildLength - 1) {
-      slideNum = 0;
-    }
-    sliderBox.style.left = "-" + slideNum * 44.5 + "rem";
-  });
-  prevBtn.addEventListener("click", (e) => {
-    slideNum--;
-    if (slideNum < 0) {
-      slideNum = slideChildLength - 2;
-    }
-    sliderBox.style.left = "-" + slideNum * 44.5 + "rem";
-  });
+  const x = window.matchMedia("(max-width: 900px)");
+  if (x) {
+    nextBtn.addEventListener("click", (e) => {
+      slideNum++;
+      if (slideNum >= slideChildLength) {
+        slideNum = 0;
+      }
+      sliderBox.style.left = "-" + slideNum * 44 + "rem";
+    });
+    prevBtn.addEventListener("click", (e) => {
+      slideNum--;
+      if (slideNum < 0) {
+        slideNum = slideChildLength - 1;
+      }
+      sliderBox.style.left = "-" + slideNum * 44.5 + "rem";
+    });
+  } else {
+    nextBtn.addEventListener("click", (e) => {
+      slideNum++;
+      if (slideNum >= slideChildLength - 1) {
+        slideNum = 0;
+      }
+      sliderBox.style.left = "-" + slideNum * 44 + "rem";
+    });
+    prevBtn.addEventListener("click", (e) => {
+      slideNum--;
+      if (slideNum < 0) {
+        slideNum = slideChildLength - 2;
+      }
+      sliderBox.style.left = "-" + slideNum * 44.5 + "rem";
+    });
+  }
 };
 
 const articleSlider = () => {
@@ -63,7 +81,6 @@ const articleSlider = () => {
     if (slideNum > sliderBoxLength - 1) {
       slideNum = 0;
     }
-    console.log("a" + slideNum * 120);
     sliderBox.style.left = "-" + slideNum * 120 + "rem";
   });
   prevBtn.addEventListener("click", () => {
@@ -76,8 +93,38 @@ const articleSlider = () => {
     sliderBox.style.left = "-" + slideNum * 120 + "rem";
   });
 };
+
+const navbarMenu = () => {
+  const menu = document.querySelector(".menu");
+  const navExit = document.querySelector(".nav-exit");
+  const navigation = document.querySelector(".navigation");
+  menu.addEventListener("click", (e) => {
+    navigation.style.left = "0";
+  });
+
+  navExit.addEventListener("click", (e) => {
+    navigation.style.left = "100rem";
+  });
+};
+
+const footerMenu = () => {
+  const footerNavigation = document.querySelector(".footer-navigation");
+  const footerMenu = document.querySelector(".footer-menu");
+  const footerExit = document.querySelector(".footer-exit ");
+
+  footerMenu.addEventListener("click", (e) => {
+    footerNavigation.style.left = "0";
+  });
+
+  footerExit.addEventListener("click", (e) => {
+    footerNavigation.style.left = "100rem";
+  });
+};
+
 (() => {
   findJobAccardion();
   jobsSlider();
   articleSlider();
+  navbarMenu();
+  footerMenu();
 })();
