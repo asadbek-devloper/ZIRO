@@ -13,12 +13,14 @@ const findJobAccardion = () => {
           accardionBox.children[i].children[0].children[1].style.rotate =
             "180deg";
         } else {
+          // accardionBox.children[i].classList.toggle("accardion-active");
           accardionBox.children[i].style.height = "auto";
           accardionBox.children[i].style.overflowY = "visible";
           accardionBox.children[i].style.padding = "0 2.1rem 2.1rem 0";
           accardionBox.children[i].children[0].children[1].style.rotate =
             "0deg";
         }
+
         counter++;
       }
     });
@@ -33,91 +35,62 @@ const jobsSlider = () => {
   // elements
   const sliderBox = document.querySelector(".featured-jobs-slider-box");
   const slideChildLength = sliderBox.children.length;
-  const x = window.matchMedia("(max-width: 900px)");
-  if (x) {
-    nextBtn.addEventListener("click", (e) => {
-      slideNum++;
-      if (slideNum >= slideChildLength) {
-        slideNum = 0;
-      }
-      sliderBox.style.left = "-" + slideNum * 44 + "rem";
-    });
-    prevBtn.addEventListener("click", (e) => {
-      slideNum--;
-      if (slideNum < 0) {
-        slideNum = slideChildLength - 1;
-      }
-      sliderBox.style.left = "-" + slideNum * 44.5 + "rem";
-    });
-  } else {
-    nextBtn.addEventListener("click", (e) => {
-      slideNum++;
-      if (slideNum >= slideChildLength - 1) {
-        slideNum = 0;
-      }
-      sliderBox.style.left = "-" + slideNum * 44 + "rem";
-    });
-    prevBtn.addEventListener("click", (e) => {
-      slideNum--;
-      if (slideNum < 0) {
-        slideNum = slideChildLength - 2;
-      }
-      sliderBox.style.left = "-" + slideNum * 44.5 + "rem";
-    });
-  }
+  nextBtn.addEventListener("click", (e) => {
+    slideNum++;
+    if (slideNum >= slideChildLength) {
+      slideNum = 0;
+    }
+    sliderBox.style.left = "-" + slideNum * 44.5 + "rem";
+  });
+  prevBtn.addEventListener("click", (e) => {
+    slideNum--;
+    if (slideNum < 0) {
+      slideNum = slideChildLength - 1;
+    }
+    sliderBox.style.left = "-" + slideNum * 44.5 + "rem";
+  });
 };
 
 const articleSlider = () => {
-  let slideNum = 0;
-  // btn
+  let slieNum = 0;
+  // buttons
   const prevBtn = document.querySelector(".article-prev");
   const nextBtn = document.querySelector(".article-next");
-  // e
-  const sliderBox = document.querySelector(".user-articles-slider-box");
-  const sliderBoxLength = sliderBox.children.length;
 
+  // elements
+  const sliderBox = document.querySelector(".user-articles-slider-box");
+  const slideBoxLength = sliderBox.children.length;
   nextBtn.addEventListener("click", () => {
-    slideNum++;
-    if (slideNum > sliderBoxLength - 1) {
-      slideNum = 0;
+    slieNum++;
+    if (slieNum > slideBoxLength - 1) {
+      slieNum = 0;
     }
-    sliderBox.style.left = "-" + slideNum * 120 + "rem";
+    sliderBox.style.left = "-" + slieNum * 125 + "rem";
   });
   prevBtn.addEventListener("click", () => {
-    slideNum--;
-    if (slideNum < 0) {
-      slideNum = sliderBoxLength - 1;
+    slieNum--;
+    if (slieNum < 0) {
+      slieNum = slideBoxLength - 1;
     }
-    console.log("b" + slideNum * 120);
-
-    sliderBox.style.left = "-" + slideNum * 120 + "rem";
+    sliderBox.style.left = "-" + slieNum * 125 + "rem";
   });
 };
 
-const navbarMenu = () => {
-  const menu = document.querySelector(".menu");
-  const navExit = document.querySelector(".nav-exit");
-  const navigation = document.querySelector(".navigation");
-  menu.addEventListener("click", (e) => {
-    navigation.style.left = "0";
-  });
-
-  navExit.addEventListener("click", (e) => {
-    navigation.style.left = "100rem";
-  });
-};
-
-const footerMenu = () => {
-  const footerNavigation = document.querySelector(".footer-navigation");
-  const footerMenu = document.querySelector(".footer-menu");
-  const footerExit = document.querySelector(".footer-exit ");
-
-  footerMenu.addEventListener("click", (e) => {
-    footerNavigation.style.left = "0";
-  });
-
-  footerExit.addEventListener("click", (e) => {
-    footerNavigation.style.left = "100rem";
+const openNavigation = () => {
+  const btn = document.querySelector(".menu-btn");
+  const xIcon = document.querySelector(".cancel-icon");
+  const menuIcon = document.querySelector(".menu-icon");
+  console.log(xIcon, menuIcon);
+  btn.addEventListener("click", (e) => {
+    const header = document.querySelector("header");
+    header.classList.toggle("sticky");
+    if (header.classList.contains("sticky")) {
+      menuIcon.classList.add("display-none");
+      xIcon.classList.remove("display-none");
+    } else {
+      xIcon.classList.add("display-none");
+      menuIcon.classList.remove("display-none");
+    }
   });
 };
 
@@ -125,6 +98,5 @@ const footerMenu = () => {
   findJobAccardion();
   jobsSlider();
   articleSlider();
-  navbarMenu();
-  footerMenu();
+  openNavigation();
 })();
