@@ -76,20 +76,36 @@ const articleSlider = () => {
   });
 };
 
-const openNavigation = () => {
-  const btn = document.querySelector(".menu-btn");
+const clickCallback = (e) => {
   const xIcon = document.querySelector(".cancel-icon");
   const menuIcon = document.querySelector(".menu-icon");
-  console.log(xIcon, menuIcon);
-  btn.addEventListener("click", (e) => {
-    const header = document.querySelector("header");
-    header.classList.toggle("sticky");
-    if (header.classList.contains("sticky")) {
-      menuIcon.classList.add("display-none");
-      xIcon.classList.remove("display-none");
-    } else {
-      xIcon.classList.add("display-none");
-      menuIcon.classList.remove("display-none");
+  const header = document.querySelector("header");
+  header.classList.toggle("sticky");
+  if (header.classList.contains("sticky")) {
+    menuIcon.classList.add("display-none");
+    xIcon.classList.remove("display-none");
+  } else {
+    xIcon.classList.add("display-none");
+    menuIcon.classList.remove("display-none");
+  }
+};
+
+const openNavigation = () => {
+  const btn = document.querySelector(".menu-btn");
+  btn.addEventListener("click", clickCallback);
+};
+
+const scrollSection = () => {
+  const navigation = document.querySelector(".navigation");
+  navigation.addEventListener("click", (e) => {
+    e.preventDefault();
+    const href = e.target.getAttribute("href");
+    if (href && href !== "/") {
+      const section = document.querySelector(href);
+      section.scrollIntoView({
+        behavior: "smooth",
+      });
+      clickCallback();
     }
   });
 };
@@ -99,4 +115,5 @@ const openNavigation = () => {
   jobsSlider();
   articleSlider();
   openNavigation();
+  scrollSection();
 })();

@@ -31,9 +31,10 @@ header {
   display: flex;
   justify-content: space-around;
   align-items: center;
+  gap: 1rem;
 }
 
-.navigation > li {
+.navigation a {
   color: var(--black);
   text-align: center;
   font-size: 1.4rem;
@@ -43,7 +44,7 @@ header {
   padding: 0.8rem 1rem;
 }
 
-.navigation > li::after {
+.navigation a::after {
   content: "";
   width: 0%;
   height: 1px;
@@ -53,10 +54,10 @@ header {
   left: 0;
   transition: all 0.3s linear;
 }
-.navigation > li:hover {
+.navigation a:hover {
   color: var(--primary-color);
 }
-.navigation > li:hover::after {
+.navigation a:hover::after {
   width: 100%;
 }
 
